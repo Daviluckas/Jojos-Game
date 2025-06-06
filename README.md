@@ -62,7 +62,7 @@ Referência real: O projeto utiliza como base referências locais do IFRN e elem
   + Possível integração com sistema de high score para competições de tempo entre jogadores.
 
  + ### 2.2 Arquitetura do Código
-   ```plaintext
+```
 jojo-campus-do-caos/
 ├── assets/                 # Recursos visuais e sonoros do jogo
 │   ├── images/             # Imagens e sprites em pixel art
@@ -111,4 +111,3 @@ jojo-campus-do-caos/
 │   ├── helpers.py          # Funções genéricas (carregar assets, formatação)
 │   └── constants.py        # Constantes globais (cores, caminhos, teclas)
 ```
-
