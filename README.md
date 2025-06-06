@@ -2,21 +2,21 @@
 
 ## 1. Visão Geral
 
-#### Tecnologia Utilizada: Python 3.10+ + Pygame 2.5+
+**Tecnologia Utilizada**: Python 3.10+ + Pygame 2.5+
 
-#### Descrição: Jojo e o Campus do Caos é um jogo 2D em estilo pixel art desenvolvido com Pygame. O jogador assume o papel de Jojo, um professor de informática do IFRN – Campus Caicó, em uma jornada cheia de obstáculos para sair da sala dos servidores e chegar à sua sala de aula no menor tempo possível.
+**Descrição**: Jojo e o Campus do Caos é um jogo 2D em estilo pixel art desenvolvido com Pygame. O jogador assume o papel de Jojo, um professor de informática do IFRN – Campus Caicó, em uma jornada cheia de obstáculos para sair da sala dos servidores e chegar à sua sala de aula no menor tempo possível.
 
-#### Objetivo: Desenvolver um jogo com narrativa cômica e interativa que combine exploração, minigames e tomada de decisão. A estrutura do código é modular, com possibilidade de expansão para novos níveis, minigames e eventos.
+**Objetivo**: Desenvolver um jogo com narrativa cômica e interativa que combine exploração, minigames e tomada de decisão. A estrutura do código é modular, com possibilidade de expansão para novos níveis, minigames e eventos.
 
 ## 2. Descrição Detalhada do Projeto
 
-### Jojo e o Campus do Caos?
+### O que é Jojo e o Campus do Caos?
 
 Jojo e o Campus do Caos é um jogo eletrônico 2D em estilo pixel art, ambientado no IFRN – Campus Caicó. Inspirado no cotidiano de um professor da área de informática, o jogador assume o papel de Jojo, um docente que precisa cumprir sua missão diária: sair da sala dos servidores e chegar até sua sala de aula o mais rápido possível. No entanto, sua jornada é constantemente interrompida por diversos desafios que retratam, de forma cômica e interativa, situações comuns do ambiente escolar.
 
 O jogo mistura elementos de aventura, minigames e tomada de decisão, transformando o caminho do professor em uma verdadeira missão cheia de imprevistos.
 
-Referência real: O projeto utiliza como base referências locais do IFRN e elementos caricatos da vivência escolar, criando uma experiência imersiva e divertida tanto para estudantes quanto para servidores.
+**Referência real**: O projeto utiliza como base referências locais do IFRN e elementos caricatos da vivência escolar, criando uma experiência imersiva e divertida tanto para estudantes quanto para servidores.
 
 ### 2.1 Funcionalidades Principais
 
@@ -26,7 +26,6 @@ Referência real: O projeto utiliza como base referências locais do IFRN e elem
   + Detecção de colisões com NPCs e obstáculos interativos.
   + Gatilhos de eventos personalizados (minigames, diálogos, escolhas).
   + Sistema de decisões com impacto direto no tempo total.
-
 
 + #### Obstáculos e Dinâmicas de Jogo:
   + Colegas de Trabalho:
@@ -39,11 +38,9 @@ Referência real: O projeto utiliza como base referências locais do IFRN e elem
     + O desafio consiste em somar as notas, avaliar os argumentos e julgar se a revisão é válida.
     + Respostas erradas ou demoradas adicionam segundos ao cronômetro.
 
-
   + Problemas de Conduta:
     + Eventos aleatórios nos quais o jogador deve tomar uma decisão rápida (ex.: advertir ou ignorar).
     + As escolhas influenciam o tempo.
-
 
   + Manifestações Estudantis (GESS):
     + Grupos de alunos bloqueando corredores, impossibilitando a passagem.
@@ -110,4 +107,51 @@ jojo-campus-do-caos/
 ├── utils/                  # Utilitários e funções auxiliares
 │   ├── helpers.py          # Funções genéricas (carregar assets, formatação)
 │   └── constants.py        # Constantes globais (cores, caminhos, teclas)
+```
+## 3. Etapas de Entrega (Cronograma Detalhado)
+
+### Etapa 1: Pré-produção e Planejamento (Semanas 1–2)
++ Definição de funções dos membros da equipe.
++ Rascunho do layout do mapa (corredores, salas, rotas alternativas).
++ Planejamento dos eventos e obstáculos do jogo.
++ Começo do design dos personagens e esboço de sprites.
+
+### Etapa 2: Estrutura Inicial e Navegação (Semanas 3–5)
++ Configuração do ambiente (Python 3.10+, Pygame 2.5+).
++ Estruturação da base do projeto (módulos, pastas e organização).
++ Implementação do mapa navegável e movimentação de Jojo.
++ Colisão com objetos fixos (paredes, portas, etc).
++ HUD com cronômetro em tempo real.
+
+### Etapa 3: Eventos e Diálogos (Semanas 6–8)
++ Sistema de colisão e ativação de eventos.
++ Lógica para diálogos com colegas de trabalho.
++ Implementação de bloqueios causados por manifestações (GESS).
++ Sistema de caminhos alternativos com base em obstáculos ativos.
+
+### Etapa 4: Minigames e Tomada de Decisão (Semanas 9–11)
++ Desenvolvimento do minigame de revisão de prova.
++ Desenvolvimento do minigame de conduta de aluno.
++ Sistema de escolha com impacto direto no cronômetro.
++ Integração de todos os eventos com o progresso do jogador.
+
+### Etapa 5: Artes Finais e Interface Gráfica (Semanas 12–13)
++ Substituição dos placeholders pelas sprites definitivas.
++ Implementação de menu inicial, pausa e tela de game over.
++ Integração da trilha sonora e efeitos sonoros dos eventos.
++ Refinamento visual da HUD e do mapa.
+
+### Etapa 6: Testes e Entrega Final (Semana 14)
++ Testes de jogabilidade e equilíbrio dos tempos.
++ Correção de bugs e ajustes finais nas colisões e eventos.
++ Finalização da documentação (README.md, comentários no código).
++ Organização da apresentação final do projeto (vídeo ou jogável).
+
+## 4. Requisitos Técnicos
+
+### 4.1 Exemplo de dependências (requirements.txt)
+```
+pygame==2.5.2
+numpy==1.26.0           # Para cálculos, manipulação de arrays, se necessário
+pillow==10.2.0          # Para manipulação de imagens, se houver necessidade
 ```
