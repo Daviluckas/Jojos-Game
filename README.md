@@ -110,5 +110,5 @@ jojo-campus-do-caos/
 ├── utils/                  # Utilitários e funções auxiliares
 │   ├── helpers.py          # Funções genéricas (carregar assets, formatação)
 │   └── constants.py        # Constantes globais (cores, caminhos, teclas)
-
+```
 
