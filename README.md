@@ -60,3 +60,52 @@ Referência real: O projeto utiliza como base referências locais do IFRN e elem
   + Efeitos sonoros únicos para interações com NPCs, conclusão de minigames e eventos especiais.
   + Modularidade para criação de novos obstáculos, desafios e rotas alternativas em atualizações futuras.
   + Possível integração com sistema de high score para competições de tempo entre jogadores.
+
+jojo-campus-do-caos/
+├── assets/                 # Recursos visuais e sonoros do jogo
+│   ├── images/             # Imagens e sprites em pixel art
+│   │   ├── player/         # Sprites do personagem Jojo
+│   │   ├── npcs/           # Sprites dos NPCs (colegas, alunos, GESS)
+│   │   ├── tilesets/       # Tilesets para construção do mapa/corredores
+│   │   └── ui/             # Elementos gráficos da interface (HUD, menus)
+│   └── sounds/             # Sons e músicas
+│       ├── bgm/            # Trilha sonora ambiente
+│       └── sfx/            # Efeitos sonoros (interações, minigames)
+│
+├── data/                   # Dados estruturados para o jogo
+│   ├── levels/             # Arquivos de configuração dos níveis e mapas
+│   └── dialogs/            # Diálogos dos NPCs e textos do jogo em JSON ou TXT
+│
+├── core/                   # Núcleo do jogo e lógica principal
+│   ├── main.py             # Ponto de entrada e inicialização do jogo
+│   ├── settings.py         # Configurações globais (resolução, FPS, cores)
+│   ├── game.py             # Loop principal e controle de estados do jogo
+│   └── state_manager.py    # Gerenciamento das transições entre telas e estados
+│
+├── engine/                 # Sistemas básicos que suportam o funcionamento
+│   ├── map_loader.py       # Carregamento e renderização do mapa e cenário
+│   ├── event_trigger.py    # Detecção e ativação de eventos e minigames
+│   ├── timer.py            # Cronômetro do jogo e controle de penalidades
+│   ├── collision.py        # Detecção de colisões entre personagem e objetos
+│   └── dialogue_box.py     # Sistema de diálogos multilinha com NPCs
+│
+├── entities/               # Definição e comportamento dos personagens e objetos
+│   ├── player.py           # Classe do Jojo (movimentação, interação)
+│   ├── npc.py              # Lógica dos NPCs (colegas, alunos, GESS)
+│   ├── obstacle.py         # Obstáculos no mapa (fixos ou móveis)
+│   └── minigame_manager.py # Gerencia minigames ativados durante o jogo
+│
+├── minigames/              # Módulos de minigames específicos
+│   ├── prova_revisao.py    # Minigame de revisão de prova
+│   ├── conduta_aluno.py    # Minigame de decisão sobre condutas
+│   └── manifestacao_gess.py# Minigame das manifestações estudantis (bloqueios)
+│
+├── ui/                     # Interface gráfica e gerenciamento de telas
+│   ├── hud.py              # HUD: cronômetro, status e indicadores
+│   ├── menu.py             # Menus principais, pause e opções
+│   └── screens.py          # Telas de início, pausa e fim de jogo
+│
+├── utils/                  # Utilitários e funções auxiliares
+│   ├── helpers.py          # Funções genéricas (carregar assets, formatação)
+    └── constants.py        # Constantes globais (cores, caminhos, teclas)
+
