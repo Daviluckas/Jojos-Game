@@ -1,6 +1,9 @@
 import pygame
 import sys
 import imagens_jojos
+import os
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -16,6 +19,13 @@ FONT = pygame.font.SysFont(None, 48)
 DIALOG_FONT = pygame.font.SysFont(None, 28)
 BIG_FONT = pygame.font.SysFont(None, 48)
 
+def load_image(path, scale=1.0):
+    img = pygame.image.load(path).convert_alpha()
+    if scale != 1.0:
+        w, h = img.get_size()
+        img = pygame.transform.scale(img, (int(w * scale), int(h * scale)))
+    return img
+
 class Button:
     def __init__(self, pos, callback, text=None, image_path=None, scale=1.0):
         self.callback = callback
@@ -23,18 +33,16 @@ class Button:
         self.image_path = image_path
         self.default_color = WHITE
         self.highlight_color = HIGHLIGHT
+
         if image_path:
-            self.image = pygame.image.load(image_path).convert_alpha()
-            if scale != 1.0:
-                w, h = self.image.get_size()
-                self.image = pygame.transform.scale(self.image, (int(w * scale), int(h * scale)))
+            self.image = load_image(image_path, scale)
             self.rect = self.image.get_rect(center=pos)
         else:
             self.label = FONT.render(self.text, True, self.default_color)
             self.rect = self.label.get_rect(center=pos)
 
     def draw(self, surface, mouse_pos):
-        if self.image_path:
+        if getattr(self, "image", None):
             surface.blit(self.image, self.rect)
         else:
             if self.rect.collidepoint(mouse_pos):
@@ -55,24 +63,22 @@ class Menu:
         gap = 150
 
         self.buttons = [
-            Button((mid_x, start_y), self.start_game, image_path="imagens_jojos/button_iniciar.png", scale=0.5),
-            Button((mid_x, start_y + gap), self.show_options, image_path="imagens_jojos/button_opcões.png", scale=0.5),
-            Button((mid_x, start_y + 2 * gap), self.exit_game, image_path="imagens_jojos/button_sair.png", scale=0.5),
+            Button((mid_x, start_y), self.start_game, text="Iniciar", image_path="imagens_jojos/button_iniciar.png", scale=0.5),
+            Button((mid_x, start_y + gap), self.show_options, text="Opções", image_path="imagens_jojos/button_opcoes.png", scale=0.5),
+            Button((mid_x, start_y + 2 * gap), self.exit_game, text="Sair", image_path="imagens_jojos/button_sair.png", scale=0.5),
         ]
 
         self.running = True
-        original_bg = pygame.image.load("imagens_jojos/jojos_tela_inicial_sembotoes.png").convert()
+        original_bg = load_image("imagens_jojos/jojos_tela_inicial_sembotoes.png")
         img_w, img_h = original_bg.get_size()
         screen_ratio = SCREEN_WIDTH / SCREEN_HEIGHT
         img_ratio = img_w / img_h
-
         if img_ratio > screen_ratio:
             scale_w = SCREEN_WIDTH
             scale_h = int(SCREEN_WIDTH / img_ratio)
         else:
             scale_h = SCREEN_HEIGHT
             scale_w = int(SCREEN_HEIGHT * img_ratio)
-
         self.background = pygame.transform.scale(original_bg, (scale_w, scale_h))
         self.bg_pos = ((SCREEN_WIDTH - scale_w) // 2, (SCREEN_HEIGHT - scale_h) // 2)
 
@@ -115,7 +121,7 @@ class Game:
         self.show_if_frente()
 
     def show_if_frente(self):
-        img = pygame.image.load("imagens_jojos/if_frente.png").convert()
+        img = load_image("imagens_jojos/if_frente.png")
         img_w, img_h = img.get_size()
         screen_ratio = SCREEN_WIDTH / SCREEN_HEIGHT
         img_ratio = img_w / img_h
@@ -128,39 +134,25 @@ class Game:
         img = pygame.transform.scale(img, (scale_w, scale_h))
         pos = ((SCREEN_WIDTH - scale_w) // 2, (SCREEN_HEIGHT - scale_h) // 2)
 
-        caixa_img = pygame.image.load("imagens_jojos/caixa_dialogo.png").convert_alpha()
-        caixa_w, caixa_h = caixa_img.get_size()
-        scale_factor = 0.5
-        caixa_img = pygame.transform.scale(caixa_img, (int(caixa_w * scale_factor), int(caixa_h * scale_factor)))
+        caixa_img = load_image("imagens_jojos/caixa_dialogo.png", scale=0.5)
         caixa_pos = ((SCREEN_WIDTH - caixa_img.get_width()) // 2,
                      (SCREEN_HEIGHT - caixa_img.get_height()) // 2)
 
-        rostinho_img = pygame.image.load("imagens_jojos/jojo_rostinho.png").convert_alpha()
-        rostinho_w = int(caixa_img.get_width() * 0.4)
-        rostinho_h = int(rostinho_img.get_height() * (rostinho_w / rostinho_img.get_width()))
-        rostinho_img = pygame.transform.scale(rostinho_img, (rostinho_w, rostinho_h))
-        rostinho_pos = (
-            (SCREEN_WIDTH - rostinho_w) // 2,
-            caixa_pos[1] - rostinho_h + 135
-        )
-
         texto_dialogo_paragrafos = [
+            "OBS: Aperte espaço para avançar...",
             """Era uma sexta-feira, final de expediente. 
 Eu, Jojo, como qualquer outro professor, contava os minutos para ir para casa.
 Na sala dos servidores, durante o intervalo, todos já deixavam bem claro o quanto ansiavam pela liberdade do fim de semana.""",
-
             """O relógio bateu a hora, e fui bater o ponto, sonhando com o sofá e um café quente.  
 Mas então, um pensamento me congelou:
 As provas recém-aplicadas… ainda estavam na salinha de matemática!
 Corri como um raio para não me atrasar mais ainda.
 Assim que fechei a porta daquela pequena sala, um clarão ofuscante invadiu todo o campus.""",
-
             """Instintivamente, corri para ver o que estava acontecendo. 
 Foi aí que vi meus colegas… ou melhor, o que restava deles.
 
 O brilho havia desaparecido dos olhos.
 A esperança parecia ter sido arrancada de suas almas.""",
-
             """Aproximando-me, tentei falar com eles, fazer com que voltassem a si. 
 Mas as respostas eram sempre as mesmas:
 Trabalho… produção… nada nos tirará do campus… nem que para isso tenhamos que lutar até o fim…
@@ -169,7 +161,6 @@ Foi nesse momento que entendi: eu era o único que tinha escapado daquele estran
 
 E se eu quisesse trazê-los de volta, teria que fazê-los lembrar de quem eram…
 mesmo que para isso fosse preciso mostrar a eles o poder dos meus bíceps.""",
-
             """E foi assim,  que a minha missão começou!"""
         ]
 
@@ -217,45 +208,36 @@ mesmo que para isso fosse preciso mostrar a eles o poder dos meus bíceps.""",
             self.screen.fill(BLACK)
             self.screen.blit(img, pos)
 
-            if show_caixa:
-                if current_paragraph_index < len(texto_dialogo_paragrafos) - 1:
-                    self.screen.blit(caixa_img, caixa_pos)
-                    if current_paragraph_index < len(texto_dialogo_paragrafos) - 2:
-                        self.screen.blit(rostinho_img, rostinho_pos)
-                    if not texto_completo and current_time - ultimo_tempo >= intervalo:
+            if show_caixa and current_paragraph_index < len(texto_dialogo_paragrafos) - 1:
+                self.screen.blit(caixa_img, caixa_pos)
+                if not texto_completo and current_time - ultimo_tempo >= intervalo:
+                    ultimo_tempo = current_time
+                    texto_index += 1
+                    if texto_index > len(texto_dialogo_paragrafos[current_paragraph_index]):
+                        texto_index = len(texto_dialogo_paragrafos[current_paragraph_index])
+                        texto_completo = True
+                margem_x = int(caixa_img.get_width() * 0.1)
+                margem_y = int(caixa_img.get_height() * 0.25)
+                max_text_width = int(caixa_img.get_width() * 0.8)
+                texto_a_exibir = texto_dialogo_paragrafos[current_paragraph_index][:texto_index]
+                self.render_text(self.screen, texto_a_exibir,
+                                 caixa_pos[0] + margem_x,
+                                 caixa_pos[1] + margem_y,
+                                 max_text_width)
+            elif show_caixa:
+                if texto_index < len(texto_dialogo_paragrafos[current_paragraph_index]):
+                    if current_time - ultimo_tempo >= intervalo:
                         ultimo_tempo = current_time
                         texto_index += 1
-                        if texto_index > len(texto_dialogo_paragrafos[current_paragraph_index]):
-                            texto_index = len(texto_dialogo_paragrafos[current_paragraph_index])
-                            texto_completo = True
-
-                    margem_x = int(caixa_img.get_width() * 0.1)
-                    margem_y = int(caixa_img.get_height() * 0.25)
-                    max_text_width = int(caixa_img.get_width() * 0.8)
-
                     texto_a_exibir = texto_dialogo_paragrafos[current_paragraph_index][:texto_index]
-
-                    self.render_text(self.screen, texto_a_exibir,
-                                     caixa_pos[0] + margem_x,
-                                     caixa_pos[1] + margem_y,
-                                     max_text_width)
                 else:
-                    if texto_index < len(texto_dialogo_paragrafos[current_paragraph_index]):
-                        if current_time - ultimo_tempo >= intervalo:
-                            ultimo_tempo = current_time
-                            texto_index += 1
-                        texto_a_exibir = texto_dialogo_paragrafos[current_paragraph_index][:texto_index]
-                    else:
-                        texto_a_exibir = texto_dialogo_paragrafos[current_paragraph_index]
-
-                    if fade_alpha < 255 and texto_completo:
-                        fade_alpha = min(fade_alpha + fade_in_speed, 255)
-
-                    text_surface = self.render_text_surface(texto_a_exibir, BIG_FONT, WHITE, 700)
-                    text_surface.set_alpha(fade_alpha)
-
-                    text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-                    self.screen.blit(text_surface, text_rect)
+                    texto_a_exibir = texto_dialogo_paragrafos[current_paragraph_index]
+                if fade_alpha < 255 and texto_completo:
+                    fade_alpha = min(fade_alpha + fade_in_speed, 255)
+                text_surface = self.render_text_surface(texto_a_exibir, BIG_FONT, WHITE, 700)
+                text_surface.set_alpha(fade_alpha)
+                text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+                self.screen.blit(text_surface, text_rect)
 
             pygame.display.flip()
             clock.tick(FPS)
@@ -264,7 +246,6 @@ mesmo que para isso fosse preciso mostrar a eles o poder dos meus bíceps.""",
         words = text.split(' ')
         lines = []
         current_line = ""
-
         for word in words:
             test_line = current_line + word + " "
             if DIALOG_FONT.size(test_line)[0] <= max_width:
@@ -273,7 +254,6 @@ mesmo que para isso fosse preciso mostrar a eles o poder dos meus bíceps.""",
                 lines.append(current_line)
                 current_line = word + " "
         lines.append(current_line)
-
         for i, line in enumerate(lines):
             line_surface = DIALOG_FONT.render(line, True, WHITE)
             surface.blit(line_surface, (x, y + i * int(DIALOG_FONT.get_height() * 1.2)))
@@ -282,7 +262,6 @@ mesmo que para isso fosse preciso mostrar a eles o poder dos meus bíceps.""",
         words = text.split(' ')
         lines = []
         current_line = ""
-
         for word in words:
             test_line = current_line + word + " "
             if font.size(test_line)[0] <= max_width:
@@ -291,11 +270,9 @@ mesmo que para isso fosse preciso mostrar a eles o poder dos meus bíceps.""",
                 lines.append(current_line)
                 current_line = word + " "
         lines.append(current_line)
-
         line_surfaces = [font.render(line, True, color) for line in lines]
         height = sum(line.get_height() for line in line_surfaces) + (len(line_surfaces)-1) * int(font.get_height() * 0.2)
         width = max(line.get_width() for line in line_surfaces)
-
         surface = pygame.Surface((width, height), pygame.SRCALPHA)
         y = 0
         for line_surface in line_surfaces:
