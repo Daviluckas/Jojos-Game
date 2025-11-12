@@ -24,25 +24,33 @@ O projeto tem como foco principal o desenvolvimento de um jogo de luta em que o 
 
 ```bash
 jojo-campus-do-caos/
-├── assets/             # Imagens, sprites e sons
-│   ├── images/         # Sprites dos personagens e cenários
-│   └── sounds/         # Efeitos sonoros e trilhas
+├── Assets/                 # Pasta principal de assets do Unity
+│   ├── Scenes/             # Cenas do jogo (fases, menus)
+│   ├── Scripts/            # Scripts em C# (lógica do jogo)
+│   │   ├── Main.cs         # Inicialização e loop principal
+│   │   ├── Config.cs       # Configurações gerais
+│   │   ├── Game.cs         # Controle das fases e lógica geral
+│   │   ├── Player.cs       # Comportamento do Jojo
+│   │   ├── Character.cs    # Comportamento de aliados e inimigos
+│   │   ├── Battle.cs       # Lógica de combate
+│   │   └── UI.cs           # Interface do usuário (menus, HUD)
+│   ├── Sprites/            # Sprites dos personagens e cenários
+│   ├── Audio/              # Efeitos sonoros e trilhas
+│   └── Prefabs/            # Prefabs de personagens, inimigos e objetos
 │
-├── data/               # Fases e diálogos
-│   ├── stages/         # Configuração de cada fase
-│   └── dialogs/        # Diálogos dos personagens
+├── ProjectSettings/        # Configurações do projeto Unity (não editar manualmente)
+├── Packages/               # Pacotes e dependências do Unity
 │
-├── src/                # Código-fonte do jogo
-│   ├── main.py         # Inicialização e loop principal
-│   ├── config.py       # Configurações gerais
-│   ├── game.py         # Controle das fases e lógica geral
-│   ├── player.py       # Comportamento do Jojo
-│   ├── character.py    # Comportamento de aliados e inimigos
-│   ├── battle.py       # Lógica de combate
-│   └── ui.py           # Interface do usuário (menus, HUD)
+├── Data/                   # Dados do jogo (fases e diálogos)
+│   ├── Stages/             # Configuração de cada fase (JSON, ScriptableObjects, etc.)
+│   └── Dialogs/            # Diálogos dos personagens
 │
-├── utils/              # Funções auxiliares
-│   └── helpers.py      # Carregamento de assets, etc.
+├── Utils/                  # Funções auxiliares
+│   └── Helpers.cs          # Carregamento de assets, utilitários, etc.
+│
+├── .gitignore              # Ignora Library, Temp, Build e arquivos do VS
+└── README.md               # Documentação do projeto
+
 ```
 
 ### 2.3 Enredo Completo
@@ -57,61 +65,51 @@ Esses aliados podem ser usados nas próximas fases, permitindo ao jogador altern
 
 O objetivo final é chegar até o núcleo do sistema — a reitoria — e enfrentar os responsáveis diretos pela manipulação. Somente ao derrotá-los Jojo poderá destruir a fonte do controle mental e libertar definitivamente o IFRN do caos, devolvendo a autonomia e a consciência a toda a comunidade escolar.
 
-## 3. Etapas de Entrega (Cronograma Detalhado)
+3. Etapas de Entrega (Cronograma Detalhado)
 
-### Etapa 1: Protótipo Inicial (Semanas 1–4)
+Etapa 1: Protótipo Inicial (Semanas 1–4)
+Configuração do ambiente (Unity 2022.3 LTS+, Visual Studio com suporte a C#).
+Estrutura básica do projeto (pastas Assets, Data, Scripts, Utils, etc).
+Cena inicial com menu e opção "Iniciar Jogo".
+Sistema de build básico funcionando (modo Play no Unity).
 
-* Configuração do ambiente (Python 3.10+, Pygame 2.5+).
-* Estrutura básica do projeto (pasta `src`, `assets`, `data`, etc).
-* Loop principal de jogo funcionando.
-* Tela inicial com opção "Iniciar Jogo".
+Etapa 2: Sistema de Combate (Semanas 5–8)
+Implementação da movimentação do personagem principal.
+Implementação básica do sistema de batalha (ataques simples, barras de vida).
+Colisões entre personagens usando Unity Colliders.
+IA simples de oponente com comportamento fixo.
 
-### Etapa 2: Sistema de Combate (Semanas 5–8)
+Etapa 3: Fases e Progressão (Semanas 9–12)
+Adição de múltiplas cenas/fases com transições utilizando SceneManager.
+Implementação da lógica de desbloqueio de aliados.
+Sistema de troca de personagens (aliado substituindo Jojo).
+HUD mostrando nome do inimigo, vida, personagem ativo, usando UI Canvas do Unity.
 
-* Implementação da movimentação do personagem.
-* Implementação básica do sistema de batalha (ataques simples, barras de vida).
-* Colisões entre personagens.
-* IA simples de oponente com comportamento fixo.
+Etapa 4: Polimento Visual e Sonoro (Semanas 13–16)
+Inserção de sprites próprios para personagens, cenários e ataques.
+Efeitos sonoros e trilhas para batalhas e menus, usando AudioSource e AudioClip.
+Tela de vitória e tela de game over implementadas como cenas ou overlays de UI.
+Diálogos iniciais e finais para cada fase.
 
-### Etapa 3: Fases e Progressão (Semanas 9–12)
+Etapa 5: Testes e Entrega Final (Semanas 17–18)
+Testes com jogadores (colegas de classe).
+Correções de bugs e ajustes de equilíbrio.
+Documentação final (README + comentários de código nos scripts C#).
 
-* Adição de múltiplas fases com transições.
-* Implementação da lógica de desbloqueio de aliados.
-* Sistema de troca de personagens (aliado substituindo Jojo).
-* HUD mostrando nome do inimigo, vida, personagem ativo.
+4. Requisitos Técnicos
 
-### Etapa 4: Polimento Visual e Sonoro (Semanas 13–16)
+4.1 Linguagem e Ferramentas
+Unity 2022.3 LTS+
+C# 10+ (via Visual Studio ou VS Code com suporte a Unity)
 
-* Inserção de sprites próprios para personagens, cenários e ataques.
-* Efeitos sonoros e trilhas para batalhas e menus.
-* Tela de vitória e tela de game over.
-* Diálogos iniciais e finais para cada fase.
+4.2 Pacotes e dependências
+Unity Package Manager: 2D, Input System, UI Toolkit
 
-### Etapa 5: Testes e Entrega Final (Semanas 17–18)
+4.3 Plataforma de execução
+Compatível com Windows, Linux e MacOS via build do Unity.
 
-* Testes com jogadores (colegas de classe).
-* Correções de bugs e ajustes de equilíbrio.
-* Documentação final (README + comentários de código).
+4.4 Recursos audiovisuais
 
-## 4. Requisitos Técnicos
-
-### 4.1 Linguagem e Bibliotecas
-
-* **Python 3.10+**
-* **Pygame 2.5+**
-
-### 4.2 Arquivo de dependências (requirements.txt)
-
-```txt
-pygame==2.5.2
-```
-
-### 4.3 Plataforma de execução
-
-* Compatível com Windows, Linux e MacOS com Python instalado.
-
-### 4.4 Recursos audiovisuais
-
-* **Sprites**: desenvolvidos em pixel art pela própria equipe.
-* **Cenários**: inspirados nas salas e ambientes do IFRN.
-* **Trilha sonora**: composta ou selecionada com base em temas escolares e eletrônicos.
+Sprites: desenvolvidos em pixel art pela própria equipe.
+Cenários: inspirados nas salas e ambientes do IFRN.
+Trilha sonora e efeitos sonoros: adicionados como AudioClip e gerenciados via AudioSourc
