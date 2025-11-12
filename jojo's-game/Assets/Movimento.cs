@@ -14,7 +14,7 @@ public class Movimento : MonoBehaviour{
 
     void Update(){
         Animacao = gameObject.GetComponent<Animator>();
-        Chao = Physics2D.OverlapCircle (Chao2.transform.position, 2f, LayerChao);
+        Chao = Physics2D.OverlapCircle (Chao2.transform.position, 0.1f, LayerChao);
 
 
         if(Input.GetAxisRaw("A") == 1) {
@@ -35,19 +35,21 @@ public class Movimento : MonoBehaviour{
             Animacao.SetBool("Walking(d)", false);
         }
 
-        if(Input.GetAxisRaw("Space") == 1) {
+        Debug.Log("Está no chão? " + Chao);
+        if (Input.GetKeyDown(KeyCode.Space) && Chao){
             Animacao.SetBool("Walking(space)", true);
-            if(Chao == true){
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 400));
-            }
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 700), ForceMode2D.Impulse);
+        }
+
+        if(Input.GetMouseButton(0)){
+            Animacao.SetBool("Attack", true);
+        }
+        else{
+            Animacao.SetBool("Attack", false);
         }
             
         if(Chao == true) {
-            Animacao.SetBool("Walking(space)", false);
-        }
-
-        if(Chao == true){
-            gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, -1));
+            Animacao.SetBool("Walking(space)", !Chao);
         }
     }
 }

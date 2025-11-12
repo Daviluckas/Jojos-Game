@@ -4,13 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private string nomeDoLevelDeJogo;
+    [SerializeField] private string movetest;
     [SerializeField] private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelOpcoes;
 
     public void Jogar()
     {
-        SceneManager.LoadScene(nomeDoLevelDeJogo);
+        SceneManager.LoadScene(2);
     }
 
     public void AbrirOpcoes()
