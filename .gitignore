@@ -7,8 +7,6 @@
 UserSettings/
 
 # Visual Studio
-*.csproj
-*.sln
 .vscode/
 .vs/
 
