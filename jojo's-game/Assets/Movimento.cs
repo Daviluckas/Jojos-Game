@@ -35,7 +35,6 @@ public class Movimento : MonoBehaviour{
             Animacao.SetBool("Walking(d)", false);
         }
 
-        Debug.Log("Está no chão? " + Chao);
         if (Input.GetKeyDown(KeyCode.Space) && Chao){
             Animacao.SetBool("Walking(space)", true);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 700), ForceMode2D.Impulse);
